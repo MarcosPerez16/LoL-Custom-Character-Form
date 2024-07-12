@@ -9,8 +9,8 @@ const Table = () => {
           <tr>
             <th></th>
             <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
+            <th>Description</th>
+            <th>Type</th>
           </tr>
         </thead>
         <tbody>
