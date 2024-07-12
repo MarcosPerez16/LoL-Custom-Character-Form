@@ -2,6 +2,7 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import types from '../ChampionType';
 
 interface FormData {
   name: string;
@@ -17,9 +18,10 @@ const schema = z.object({
     .max(50),
   description: z
     .string()
-    .min(20, { message: 'Field must contain at least 20 characters.' })
-    .max(50),
-  type: z.string().min(3).max(50),
+    .min(10, { message: 'Field must contain at least 10 characters.' }),
+  type: z.enum(types, {
+    errorMap: () => ({ message: 'Type is required.' }),
+  }),
 });
 
 const onSubmit = (data: FormData) => console.log(data);
@@ -67,13 +69,19 @@ const Filter = () => {
         {/* i will have to create a data file to store the types in and then 
         map over so it can be a drop down menu instead of just typing in the input
         */}
-        <label htmlFor='type'>Type</label>
-        <input
-          {...register('type')}
-          id='type'
-          type='text'
-          className='form-control'
-        />
+        <label htmlFor='type' className='form-label'>
+          Types
+        </label>
+        <select {...register('type')} id='type' className='form-select'>
+          {/* this field is intentionally left blank */}
+          <option value=''></option>
+          {types.map((types) => (
+            <option key={types} value={types}>
+              {types}
+            </option>
+          ))}
+        </select>
+        {errors.type && <p className='text-red-600'>{errors.type.message}</p>}
       </div>
       <button className='btn btn-primary mb-5' type='submit'>
         Submit
