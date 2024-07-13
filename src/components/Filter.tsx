@@ -10,6 +10,10 @@ interface FormData {
   type: string;
 }
 
+interface FilterProps {
+  addChampion: (newChampion: FormData) => void;
+}
+
 //creating zod schema
 const schema = z.object({
   name: z
@@ -24,18 +28,24 @@ const schema = z.object({
   }),
 });
 
-const onSubmit = (data: FormData) => console.log(data);
-
-const Filter = () => {
+const Filter = ({ addChampion }: FilterProps) => {
   // logic here
 
+  //   called reset using react hook form then added it to the onSubmit function to reset form
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  const onSubmit = (data: FormData) => {
+    addChampion(data);
+    console.log(data);
+    reset();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

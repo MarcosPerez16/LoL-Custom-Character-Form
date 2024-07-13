@@ -1,5 +1,16 @@
 // imports here
-const Table = () => {
+
+export interface Champion {
+  name: string;
+  description: string;
+  type: string;
+}
+
+interface TableProps {
+  champions: Champion[];
+}
+
+const Table = ({ champions }: TableProps) => {
   // logic here
   return (
     <div className='overflow-x-auto'>
@@ -14,27 +25,14 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
-          <tr>
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-          </tr>
-          {/* row 2 */}
-          <tr>
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr>
-          {/* row 3 */}
-          <tr>
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-          </tr>
+          {champions.map((champion, index) => (
+            <tr key={index}>
+              <th>{index + 1}</th>
+              <td>{champion.name}</td>
+              <td>{champion.description}</td>
+              <td>{champion.type}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
