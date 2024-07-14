@@ -76,9 +76,6 @@ const Filter = ({ addChampion }: FilterProps) => {
         )}
       </div>
       <div className='mb-3'>
-        {/* i will have to create a data file to store the types in and then 
-        map over so it can be a drop down menu instead of just typing in the input
-        */}
         <label htmlFor='type' className='form-label'>
           Types
         </label>

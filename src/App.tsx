@@ -2,14 +2,20 @@ import { useState } from 'react';
 import Filter from './components/Filter';
 import Table, { Champion } from './components/Table';
 
+//notice our interface is defined in a child component but we use it here in state by importing it
+//we defined the interface paramaters in table.tsx
 function App() {
   const [champions, setChampions] = useState<Champion[]>([]);
 
+  //adds a new champion to the champions state
   const addChampion = (newChampion: Champion) => {
     setChampions([...champions, newChampion]);
   };
 
-  //next we will create the delete button to delete entries
+  //delete champion
+  const deleteChampion = (index: number) => {
+    setChampions(champions.filter((_, i) => i !== index));
+  };
 
   return (
     <>
@@ -18,7 +24,7 @@ function App() {
       </h1>
       {/* below we pass the addChampion function as props to Filter component */}
       <Filter addChampion={addChampion} />
-      <Table champions={champions} />
+      <Table champions={champions} deleteChampion={deleteChampion} />
     </>
   );
 }

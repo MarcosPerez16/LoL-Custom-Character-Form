@@ -8,9 +8,10 @@ export interface Champion {
 
 interface TableProps {
   champions: Champion[];
+  deleteChampion: (index: number) => void;
 }
 
-const Table = ({ champions }: TableProps) => {
+const Table = ({ champions, deleteChampion }: TableProps) => {
   // logic here
   return (
     <div className='overflow-x-auto'>
@@ -31,6 +32,9 @@ const Table = ({ champions }: TableProps) => {
               <td>{champion.name}</td>
               <td>{champion.description}</td>
               <td>{champion.type}</td>
+              <td>
+                <button onClick={() => deleteChampion(index)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
